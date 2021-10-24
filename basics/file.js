@@ -2,7 +2,7 @@ const fs = require("fs"); // imports file system
 
 // reading files
 
-// // this function is ASYNCHRONOUS
+// this function is ASYNCHRONOUS
 // fs.readFile("./docs/blog1.txt", (err, data) => {
 //   if (err) {
 //     console.log(err);
@@ -15,7 +15,7 @@ const fs = require("fs"); // imports file system
 // console.log('last line'); // this is executed first
 
 // writing files
-// //creates a new file if file you're writing to doesn't exist
+//creates a new file if file you're writing to doesn't exist
 // fs.writeFile("./docs/blog2.txt", "FUck me", () => {
 //     console.log('file was written');
 
