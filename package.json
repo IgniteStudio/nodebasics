@@ -1,0 +1,22 @@
+{
+  "name": "basics",
+  "version": "1.0.0",
+  "description": "basic node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgniteStudio/nodebasics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IgniteStudio/nodebasics/issues"
+  },
+  "homepage": "https://github.com/IgniteStudio/nodebasics#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
