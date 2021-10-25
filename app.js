@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 
 // express app
 const app = express();
@@ -9,6 +10,13 @@ app.set("view engine", "ejs");
 
 // listen for requests
 app.listen(3000);
+
+// middleware and static files
+app.use(express.static('public')); // directs calls to the public folder
+
+app.use(morgan('dev')); // shows method, path status code, time of execution
+
+
 
 app.get("/", (req, res) => {
   const blogs = [
@@ -25,6 +33,9 @@ app.get("/", (req, res) => {
   // res.send("<p>home page</p>");
   res.render("index", { title: "Home", blogs }); //blogs by itself is the same as blogs: blogs
 });
+
+
+
 
 app.get("/about", (req, res) => {
   // res.send(`<p>${__dirname}</p>`);
