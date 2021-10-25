@@ -23,6 +23,7 @@ app.set("view engine", "ejs");
 
 // middleware and static files
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 // routes
@@ -35,10 +36,16 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
+
+app.get("/blogs/create", (req, res) => {
+  res.render("create", { title: "Create a new Blog" });
+});
+
+
 // blog routes
 app.get("/blogs", (req, res) => {
   Blog.find()
-    .sort({ createdAt: -1 })// -1 means desc order
+    .sort({ createdAt: -1 }) // -1 means desc order
     .then((result) => {
       res.render("index", { title: "All Blogs", blogs: result });
     })
@@ -47,8 +54,39 @@ app.get("/blogs", (req, res) => {
     });
 });
 
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Create" });
+app.post("/blogs", (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  Blog.findById(id)
+    .then((result) => {
+      res.render("details", { blog: result, title: "Blog Details" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.delete("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: "/blogs" });
+    })
+    .catch((err) => console.log(err));
 });
 
 // 404 page
@@ -56,19 +94,3 @@ app.get("/blogs/create", (req, res) => {
 app.use((req, res) => {
   res.status(404).render("404", { title: "Not Found" });
 });
-
-// const blogs = [
-//   {
-//     title: "David needs help",
-//     snippet: "David needs help with patience" },
-//   {
-//     title: "David has a bad knee",
-//     snippet: "Why are knees a repeating motif?",
-//   },
-//   {
-//     title: "David has an ear problem",
-//     snippet: "my ears are sensitive to sound",
-//   },
-// ];
-// // res.send("<p>home page</p>");
-// res.render("index", { title: "Home", blogs }); //blogs by itself is the same as blogs: blogs
