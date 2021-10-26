@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-
 const blogRoutes = require("./routes/blogRoutes");
 
 // express app
@@ -26,7 +25,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
 
 
 // routes

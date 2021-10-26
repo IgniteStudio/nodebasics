@@ -75,13 +75,17 @@ h3 {
   position: absolute;
   top: 0;
   right: 100;
-  font-size: 1.5em;
+  size-adjust: 150%;
   border-radius: 25%;
   padding: 8px;
 }
 .delete:hover {
   cursor: pointer;
-  box-shadow: 1px 2px 3px black;
+  box-shadow: 1px 2px 3px grey;
+}
+.trash {
+  width: 80px;
+  height: 80px;
 }
 
 /* create styles */
